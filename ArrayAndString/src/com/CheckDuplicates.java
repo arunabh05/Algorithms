@@ -1,14 +1,17 @@
 package com;
+
 import java.util.HashMap;
 
 // To check duplicate values in a given string.
-public class ChechDuplicates {
+public class CheckDuplicates {
 	public static void main(String args[]) {
 		String sentence = "Hello World";
 		System.out.println(checkDuplicate(sentence));
 		System.out.println(checkWithHashMap(sentence));
 		System.out.println(checkWithBooleanArray(sentence));
 	}
+
+	// checkWithHashMap time complexity O(n) with a single loop for search
 
 	public static String checkWithHashMap(String sentence) {
 		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
@@ -23,6 +26,7 @@ public class ChechDuplicates {
 		return "no duplicate found";
 	}
 
+	// checkWithBooleanArray time complexity O(n)
 	public static String checkWithBooleanArray(String sentence) {
 		boolean ch[] = new boolean[128];
 		if (sentence.length() > 128) {
@@ -40,7 +44,9 @@ public class ChechDuplicates {
 		return "no duplicate values";
 	}
 
-	// Check without any additional data structure
+	// checkDuplicate without any additional data structure: time complexity
+	// O(n) and space complexity O(1)
+
 	public static String checkDuplicate(String sentence) {
 		for (int i = 0; i < sentence.length(); i++) {
 			for (int j = i + 1; j < sentence.length(); j++) {
