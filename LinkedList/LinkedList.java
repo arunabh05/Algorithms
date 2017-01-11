@@ -9,28 +9,43 @@ public class RemoveDups {
 		RemoveDups main = new RemoveDups();
 		Node head = main.new Node(1);
 
-		head.addNode(head, 3);
+		head.addNode(head, 11);
 		head.addNode(head, 5);
 		head.addNode(head, 2);
 		head.addNode(head, 3);
 
+		Node head2 = main.new Node(1);
+
+		head2.addNode(head2, 5);
+		head2.addNode(head2, 3);
+		head2.addNode(head2, 6);
+		head2.addNode(head2, 2);
+
 		head.printLinkedList(head);
 		System.out.println("");
-//		head.removeDuplicate(head);
+		head2.printLinkedList(head2);
+		System.out.println("");
 
-		head.printLinkedList(head);
+		// head.removeDuplicate(head);
+
+		// head.printLinkedList(head);
 
 		System.out.println("");
 
-	//	System.out.println("Kth element from Last is: " + head.findKth(2, head));
-		
-	//	head.deleteMiddleElement(head.next.next);
+		// System.out.println("Kth element from Last is: " + head.findKth(2,
+		// head));
 
-	//	head.printLinkedList(head);
-		head.partitionK(5, head);
-		
-		head.printLinkedList(head);
-		
+		// head.deleteMiddleElement(head.next.next);
+
+		// head.printLinkedList(head);
+
+		// Node h = head.partitionK(5, head);
+
+		// h.printLinkedList(h);
+
+		Node sumList = head.sumList(head, head2);
+		sumList.printLinkedList(sumList);
+
 	}
 
 	public class Node {
@@ -102,7 +117,7 @@ public class RemoveDups {
 
 		}
 
-		//time complexity : O(n)
+		// time complexity : O(n)
 		public int findKth(int k, Node head) {
 
 			Node current = head;
@@ -131,40 +146,86 @@ public class RemoveDups {
 
 			return -1;
 		}
-		
-		
-		public void deleteMiddleElement(Node mid){
-			
-			if(mid != null && mid.next != null){
+
+		public void deleteMiddleElement(Node mid) {
+
+			if (mid != null && mid.next != null) {
 				mid.data = mid.next.data;
-				mid.next= mid.next.next;
+				mid.next = mid.next.next;
 			}
-			
+
 		}
-		
-		
-		public void partitionK(int k,Node head){
-			
+
+		// time complexity - O(n)
+		public Node partitionK(int k, Node head) {
+
 			Node current = head;
 			Node previous = null;
-			while(current != null){
-				System.out.println(current.data);
-				if(current.data <= k){
-					Node newNode = new Node(current.data);
-					newNode.next = head;
-					head = newNode;
-					previous.next = current.next;
-					current = previous;
-				}else{
+			while (current != null) {
+				if (current.data < k) {
+					if (previous != null) {
+						previous.next = current.next;
+						current.next = head;
+						head = current;
+						current = previous;
+					}
+				} else {
 					previous = current;
 				}
 				current = current.next;
 			}
-			
-			
+
+			return head;
 		}
-		
-		
+
+		// time complexity - O(n)
+		public Node partitionN(int k, Node node) {
+
+			Node head = node;
+			Node tail = node;
+			while (node != null) {
+				Node next = node.next;
+				// System.out.println(node.data);
+				if (node.data < k) {
+					node.next = head;
+					head = node;
+				} else {
+					tail.next = node;
+					tail = node;
+				}
+				node = next;
+			}
+			tail.next = null;
+
+			return head;
+		}
+
+		public Node sumList(Node node, Node node2) {
+
+			Node head = node;
+			Node head1 = node2;
+			Node head2 = null;
+			int rem = 0;
+			while (head1 != null || head != null) {
+
+				int fulldata = head1.data + head.data + rem;
+				rem = 0;
+				int data = fulldata;
+
+				if (fulldata >= 10) {
+					data = data % 10;
+					rem = 1;
+				}
+
+				Node newNode = new Node(data);
+				newNode.next = head2;
+				head2 = newNode;
+				head1 = head1.next;
+				head = head.next;
+			}
+			return head2;
+		}
+
 	}
+
 }
-  
