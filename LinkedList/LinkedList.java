@@ -11,19 +11,27 @@ public class RemoveDups {
 
 		head.addNode(head, 11);
 		head.addNode(head, 5);
-		head.addNode(head, 2);
-		head.addNode(head, 3);
-
+		head.addNode(head, 11);
+		
+		
+		
 		Node head2 = main.new Node(1);
 
 		head2.addNode(head2, 5);
 		head2.addNode(head2, 3);
 		head2.addNode(head2, 6);
-		head2.addNode(head2, 2);
+		head2.addNode(head, 2);
 
-		head.printLinkedList(head);
+		Node newNode = main.new Node(4);
+		head.next = newNode;
+		head2.next = newNode;
+
+		
+		head.next.next = head;
+		
+//		head.printLinkedList(head);
 		System.out.println("");
-		head2.printLinkedList(head2);
+		//head2.printLinkedList(head2);
 		System.out.println("");
 
 		// head.removeDuplicate(head);
@@ -43,9 +51,19 @@ public class RemoveDups {
 
 		// h.printLinkedList(h);
 
-		Node sumList = head.sumList(head, head2);
-		sumList.printLinkedList(sumList);
+		// Node sumList = head.sumList(head, head2);
+		// sumList.printLinkedList(sumList);
 
+		System.out.println("");
+		// System.out.println(head.checkPalindrome(head));
+
+		
+		
+		//System.out.println(head.next+":::"+head2.next);
+		//System.out.println(head.intersectingList(head, head2));
+
+		
+		System.out.println(head.loopDetection(head));
 	}
 
 	public class Node {
@@ -200,6 +218,8 @@ public class RemoveDups {
 			return head;
 		}
 
+		// incomplete
+		// time complexity - O(n)
 		public Node sumList(Node node, Node node2) {
 
 			Node head = node;
@@ -226,6 +246,71 @@ public class RemoveDups {
 			return head2;
 		}
 
-	}
+		// time complexity - O(n2)
+		public boolean checkPalindrome(Node head) {
 
+			Node reversed = reverseList(head);
+			reversed.printLinkedList(reversed);
+
+			Node current1 = head;
+			Node current2 = reversed;
+
+			while (current1 != null && current2 != null) {
+
+				if (current1.data != current2.data) {
+					return false;
+				}
+				current1 = current1.next;
+				current2 = current2.next;
+			}
+			return true;
+		}
+
+		public Node reverseList(Node head) {
+
+			Node head2 = null;
+			Node current = head;
+			while (current != null) {
+
+				Node newNode = new Node(current.data);
+				newNode.next = head2;
+				head2 = newNode;
+				current = current.next;
+			}
+			return head2;
+		}
+
+		public int intersectingList(Node list1, Node list2) {
+
+			Node current1 = list1;
+
+			while (current1 != null) {
+				Node current2 = list2;
+				while (current2 != null) {
+					if (current1.equals(current2)) {
+						return current1.data;
+					}
+					current2 = current2.next;
+				}
+				current1 = current1.next;
+			}
+			return -1;
+		}
+		
+		public int loopDetection(Node head){
+			
+			Node current = head;
+			HashSet<Node> set = new HashSet<Node>();
+			
+			while(current!=null){
+				if(set.contains(current)){
+					return current.data;
+				}else{
+					set.add(current);
+				}
+				current = current.next;
+			}
+			return -1;
+		}
+	}
 }
