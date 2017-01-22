@@ -48,7 +48,6 @@ public class MinimalTree {
 			System.out.println("Right Child-->"+n.rightChild.data);
 			
 		}
-
 		return n;
 	}
 
