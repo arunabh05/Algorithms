@@ -2,6 +2,7 @@ package com.TreeAndGraph;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Queue;
 
 public class ListOfDepths {
 
@@ -15,6 +16,38 @@ public class ListOfDepths {
 		}
 	}
 
+    int depth = 0;
+	int preOrder(TreeNode root,int data,int level){
+	       if(root == null){
+	           return -1;
+	       }
+	       
+	       Queue<TreeNode> q = new LinkedList<TreeNode>();
+	       q.add(root);
+	       
+	       while(!q.isEmpty()){
+	    	   TreeNode n = q.remove();
+	    	   
+	            if(3 == n.data){
+	                if(depth <= level){
+	                   depth =  level;
+	                }
+	            }
+	           
+	         System.out.println(n.data);
+
+	           if(n.left!=null){
+	               q.add(n.left);
+	               
+	           }
+	           if(n.right!= null){
+	               q.add(n.right);
+	           }
+	       }
+	   return depth;
+	   }
+
+	
 	public void levelOrderSearch(TreeNode root) {
 
 		if (root == null) {
@@ -22,17 +55,19 @@ public class ListOfDepths {
 		}
 
 		LinkedList<TreeNode> queue = new LinkedList<TreeNode>();
+		LinkedList<Integer> q = new LinkedList<Integer>();
+		
 		queue.addFirst(root);
-
+		q.add(0);
+		
 		while (!queue.isEmpty()) {
-
 			TreeNode node = queue.removeLast();
-
 			System.out.println(node.data);
 
 			if (node.left != null) {
 				System.out.println("");
 				queue.addFirst(node.left);
+				
 			}
 			if (node.right != null) {
 				System.out.println("");
@@ -51,10 +86,10 @@ public class ListOfDepths {
 		ArrayList<LinkedList<TreeNode>> listOfDepths = new ArrayList<LinkedList<TreeNode>>();
 		LinkedList<TreeNode> newLevel = new LinkedList<TreeNode>();
 		newLevel.add(root);
-
+		
 		while (newLevel.size() > 0) {
 			listOfDepths.add(newLevel);
-
+			
 			LinkedList<TreeNode> previousLevel = newLevel;
 
 			newLevel = new LinkedList<TreeNode>();
@@ -84,7 +119,7 @@ public class ListOfDepths {
 		TreeNode n7 = Ldepths.new TreeNode(7);
 		TreeNode n8 = Ldepths.new TreeNode(8);
 		TreeNode n9 = Ldepths.new TreeNode(9);
-		TreeNode n10 = Ldepths.new TreeNode(10);
+		TreeNode n10 = Ldepths.new TreeNode(3);
 
 		n1.left = n2;
 		n1.right = n3;
@@ -100,7 +135,7 @@ public class ListOfDepths {
 
 		n5.left = n10;
 
-		ArrayList<LinkedList<TreeNode>> lists = Ldepths.ListOfDepth(n1);
+/*		ArrayList<LinkedList<TreeNode>> lists = Ldepths.ListOfDepth(n1);
 
 		for (LinkedList<TreeNode> l : lists) {
 			while (!l.isEmpty()) {
@@ -108,5 +143,7 @@ public class ListOfDepths {
 			}
 			System.out.println("");
 		}
+		*/
+		System.out.println("depth:"+Ldepths.preOrder(n1, 3,0));
 	}
 }

@@ -1,5 +1,8 @@
 package com.TreeAndGraph;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 public class MinimalTree {
 
 	class TreeNode {
@@ -51,4 +54,41 @@ public class MinimalTree {
 		return n;
 	}
 
+	
+
+    public int maxDepth(TreeNode root,int data){
+
+      if(root == null){
+          return -1;
+      }
+      
+      int depth = 0;
+      int dep = 0;       
+      Queue<TreeNode> q = new LinkedList<TreeNode>();
+      q.add(root);
+      
+      while(!q.isEmpty()){
+          TreeNode n = q.remove();
+
+           if(data == n.data){
+               if(dep >= depth){
+                  depth =  dep;
+               }
+           }
+          
+          System.out.println(n.data);
+          if(n.leftChild != null){
+              q.add(n.leftChild);
+          }
+          if(n.rightChild!= null){
+              q.add(n.rightChild);
+          }
+          
+          if(n.leftChild !=null && n.rightChild != null){
+              dep++;
+          }
+
+     }
+  return depth;
+  }
 }
